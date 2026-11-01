@@ -1,18 +1,17 @@
-/* Shared brand tokens. Change these after you agree on your brand direction.
-   Both the storefront and the live style guide use this file. */
+/* Full Shift brand tokens. Shared by the storefront and the live style guide. */
 :root {
-  --color-paper: #f6f5f0;
-  --color-ink: #171a18;
-  --color-muted: #5a615b;
-  --color-line: #d1d5cc;
-  --color-accent: #e3ef56;
-  --color-soft: #e8eae1;
+  --color-paper: #ffd23f;
+  --color-ink: #111;
+  --color-muted: #3d3a2a;
+  --color-line: #b8962a;
+  --color-accent: #ff9ecb;
+  --color-soft: #ffe68a;
+  --color-pop: #1d3fbb;
   --color-white: #fff;
   --color-danger: #992e28;
   --font-body:
     system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", sans-serif;
-  --font-display:
-    system-ui, -apple-system, blinkmacsystemfont, "Segoe UI", sans-serif;
+  --font-display: impact, "Arial Black", sans-serif;
   --font-mono: ui-monospace, sfmono-regular, consolas, monospace;
   --space-1: 0.5rem;
   --space-2: 1rem;
@@ -107,13 +106,13 @@ h3 {
 h1 {
   font-size: clamp(3.4rem, 6.25vw, 6.6rem);
   line-height: 0.99;
-  letter-spacing: -0.075em;
+  letter-spacing: 0;
 }
 
 h2 {
   font-size: clamp(2rem, 3.6vw, 3.75rem);
   line-height: 1.08;
-  letter-spacing: -0.055em;
+  letter-spacing: 0;
 }
 
 h3 {
@@ -838,7 +837,7 @@ legend {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 4.5vw, 5rem);
   font-weight: 550;
-  letter-spacing: -0.075em;
+  letter-spacing: 0;
   line-height: 1;
   max-width: 700px;
 }
@@ -1294,4 +1293,10 @@ legend {
     transition: none !important;
     animation: none !important;
   }
+}
+
+.brand-tilt {
+  display: inline-block;
+  color: var(--color-pop);
+  transform: rotate(-3deg);
 }
