@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Full Shift - hero previews</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f2f2f2;
+        color: #111;
+      }
+      .intro,
+      .notes {
+        max-width: 60rem;
+        margin: 0 auto;
+        padding: 1.5rem;
+      }
+      .preview {
+        max-width: 60rem;
+        margin: 0 auto;
+      }
+      .modern {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 1.5rem;
+        padding: 3rem 1.5rem;
+        background: #fff;
+      }
+      .modern .bar {
+        min-height: 12rem;
+        background: #d62b1f;
+      }
+      .modern h3 {
+        margin: 0 0 1rem;
+        font-size: 2.5rem;
+        line-height: 1.1;
+      }
+      .modern p {
+        margin: 0 0 1.5rem;
+        font-size: 1.125rem;
+      }
+      .modern a {
+        display: inline-block;
+        padding: 0.75rem 1.25rem;
+        background: #111;
+        color: #fff;
+        text-decoration: none;
+      }
+      .post {
+        overflow: hidden;
+        padding: 3rem 1.5rem;
+        background: #ffd23f;
+      }
+      .post h3 {
+        margin: 0 0 1rem;
+        font-family: Impact, "Arial Black", sans-serif;
+        font-size: 3rem;
+        line-height: 0.95;
+        text-transform: uppercase;
+      }
+      .post h3 span {
+        display: block;
+      }
+      .post .tilt {
+        color: #b0005f;
+        transform: rotate(-3deg);
+        margin: 0.25em 0;
+      }
+      .post .big {
+        font-size: 1.4em;
+        color: #1d3fbb;
+      }
+      .post p {
+        display: inline-block;
+        margin: 0 0 1.5rem;
+        padding: 0.25rem 0.5rem;
+        background: #111;
+        color: #fff;
+        font-size: 1.125rem;
+        transform: rotate(1deg);
+      }
+      .post a {
+        display: inline-block;
+        padding: 0.75rem 1.25rem;
+        border: 4px solid #111;
+        background: #fff;
+        color: #111;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      @media (max-width: 40rem) {
+        .modern {
+          grid-template-columns: 1fr;
+        }
+        .modern .bar {
+          min-height: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="intro">
+      <h1>Full Shift: two hero previews</h1>
+      <p>Same words, two designs. Compare them, then pick one.</p>
+    </header>
+    <main>
+      <section class="preview" aria-labelledby="modern-label">
+        <h2 id="modern-label" class="notes">Preview A: Modernist</h2>
+        <div class="modern">
+          <div class="bar"></div>
+          <div>
+            <h3>Long day ahead? This one's got you.</h3>
+            <p>Comfortable from first class to closing time.</p>
+            <a href="index.html">Choose your size</a>
+          </div>
+        </div>
+        <div class="notes">
+          <p>
+            Reference:
+            <a href="https://collections.vam.ac.uk/item/O110243"
+              >Josef Muller-Brockmann, Musica Viva poster, 1959 (V&amp;A)</a
+            >
+          </p>
+          <ul>
+            <li>
+              Choices: white space, a simple grid, one red block, plain
+              sans-serif type.
+            </li>
+            <li>Intended effect: feels calm, clean, and easy to read fast.</li>
+            <li>Risk: could feel too plain for a chill, friendly brand.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="preview" aria-labelledby="post-label">
+        <h2 id="post-label" class="notes">Preview B: Postmodernist</h2>
+        <div class="post">
+          <h3>
+            <span>Long day</span>
+            <span class="big">ahead?</span>
+            <span class="tilt">This one's</span>
+            <span>got you.</span>
+          </h3>
+          <p>Comfortable from first class to closing time.</p>
+          <a href="index.html">Choose your size</a>
+        </div>
+        <div class="notes">
+          <p>
+            Reference:
+            <a href="https://collection.cooperhewitt.org/objects/18655855"
+              >Paula Scher, Bring in 'da Noise, Bring in 'da Funk poster, 1995
+              (Cooper Hewitt)</a
+            >
+          </p>
+          <ul>
+            <li>
+              Choices: big blocky type, mixed sizes, a tilted line, loud colors.
+            </li>
+            <li>
+              Intended effect: feels energetic, fun, and full of personality.
+            </li>
+            <li>
+              Risk: could feel messy and make the "looks sharp" visitor worry.
+            </li>
+          </ul>
+          <p>
+            Help received: the AI coach drafted both previews and these notes.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
