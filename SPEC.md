@@ -4,6 +4,12 @@ This is the durable agreement between the learner and agent. Keep it concise and
 
 [LEARNING.md](LEARNING.md) holds the short, reviewable record of learner explanations and help received. Keep the brand decisions and implementation evidence here; link rather than duplicate them.
 
+## Research
+
+- T-shirt research: [Research.md](Research.md), with screenshots in [screenshots](screenshots). Sites checked Nov 3, 2026.
+- Chosen audience (hypothesis, not tested yet): commuting students buying one everyday white tee. They need the right size and the full price before checkout.
+- Next check: in class on Nov 5, a classmate finds the size guide and total without help. Feedback will go in a GitHub issue.
+
 ## Current stage
 
 - Stage: BRAND-001 built, checked, and ready to merge.
