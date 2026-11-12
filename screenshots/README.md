@@ -1,1 +1,1 @@
-   Screenshots for my T-shirt research.
+Screenshots for my T-shirt research.
