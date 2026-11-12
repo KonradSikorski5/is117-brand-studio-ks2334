@@ -57,6 +57,29 @@ test("keyboard: the skip link reaches main and the size controls work without a 
   await expect(page.locator("#bag-count")).toHaveText("1");
 });
 
+test("keyboard: a focused size option shows a visible outline (#5)", async ({
+  page,
+}) => {
+  await page.goto("/");
+  // Reach the sizes with real keys: the demo bag link comes right before them.
+  await page.getByRole("link", { name: "View demo bag" }).focus();
+  await page.keyboard.press("Tab");
+  for (const size of ["S", "M"]) {
+    const radio = page.locator(`input[name="size"][value="${size}"]`);
+    await expect(radio).toBeFocused();
+    const outline = await radio.evaluate((input) => {
+      const style = getComputedStyle(input.nextElementSibling);
+      return {
+        style: style.outlineStyle,
+        width: parseFloat(style.outlineWidth),
+      };
+    });
+    expect(outline.style).not.toBe("none");
+    expect(outline.width).toBeGreaterThanOrEqual(2);
+    await page.keyboard.press("ArrowRight");
+  }
+});
+
 for (const route of ["/", "/styleguide.html", "/studio.html"]) {
   test(`page integrity and automated accessibility: ${route}`, async ({
     page,
