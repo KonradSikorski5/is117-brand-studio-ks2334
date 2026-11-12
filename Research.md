@@ -8,11 +8,11 @@ Konrad Sikorski · IS117-005 · Sites checked Nov 3, 2026
 
 I shopped each site the same way: US desktop, one white men's crewneck, size M, regular shipping. A few carts ended up with an L or XL, but every size costs the same. Screenshots of each product page and cart are in the `screenshots` folder of this repo.
 
-| Site (checked Nov 3, 2026) | Look | Character | Trust and action | What it suggests for me |
-| --- | --- | --- | --- | --- |
-| [Buck Mason](https://www.buckmason.com/products/white-pima-classic-tee) | Clean layout, plain labels, big product photos | Everyperson, with some Creator because it makes shirts in its own PA mill | Authority from "Made in USA." The cart showed $48 + $8 shipping = $56 estimate before checkout. | Showing the total early felt honest. I want my cart to do the same. |
-| [ASKET](https://www.asket.com/en-us/mens-t-shirt-white) | Very minimal, lots of white space, no logo on the shirt | Sage, because it teaches you about the fabric | Authority from fabric facts (180gsm, made in Portugal). Social proof: 4.6/5 from 2,689 reviews. The add-to-cart panel showed $65 but no shipping. | Clear details reduce doubt. But I can only state true facts about my own shirt, not borrow ASKET's claims. Its 15 sizes and long text could also slow a quick buyer down. |
-| [Uniqlo](https://www.uniqlo.com/us/en/products/E455365-000) | Simple grid, plain product names | Everyperson: cheap, unisex, XXS–3XL | Social proof from a "Bestseller" tag and 999+ reviews. A "Limited-Time Deals" banner, but a sale is not real scarcity. Shipping showed as TBD. | My guess is that students want a low, clear price. A sale banner alone shouldn't be my reason to buy. |
+| Site (checked Nov 3, 2026)                                              | Look                                                    | Character                                                                 | Trust and action                                                                                                                                  | What it suggests for me                                                                                                                                                   |
+| ----------------------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Buck Mason](https://www.buckmason.com/products/white-pima-classic-tee) | Clean layout, plain labels, big product photos          | Everyperson, with some Creator because it makes shirts in its own PA mill | Authority from "Made in USA." The cart showed $48 + $8 shipping = $56 estimate before checkout.                                                   | Showing the total early felt honest. I want my cart to do the same.                                                                                                       |
+| [ASKET](https://www.asket.com/en-us/mens-t-shirt-white)                 | Very minimal, lots of white space, no logo on the shirt | Sage, because it teaches you about the fabric                             | Authority from fabric facts (180gsm, made in Portugal). Social proof: 4.6/5 from 2,689 reviews. The add-to-cart panel showed $65 but no shipping. | Clear details reduce doubt. But I can only state true facts about my own shirt, not borrow ASKET's claims. Its 15 sizes and long text could also slow a quick buyer down. |
+| [Uniqlo](https://www.uniqlo.com/us/en/products/E455365-000)             | Simple grid, plain product names                        | Everyperson: cheap, unisex, XXS–3XL                                       | Social proof from a "Bestseller" tag and 999+ reviews. A "Limited-Time Deals" banner, but a sale is not real scarcity. Shipping showed as TBD.    | My guess is that students want a low, clear price. A sale banner alone shouldn't be my reason to buy.                                                                     |
 
 ## Two positions
 
@@ -37,15 +37,15 @@ I picked A because the biggest problem I saw was unclear cost. ASKET's add-to-ca
 - **Name:** Full Shift (from my Brand Studio work)
 - **Archetype:** Everyperson
 - **Voice:** plain, friendly, honest
-- **Look:** Modernist-inspired. I'm using the idea of a strong grid and clear order from Josef Müller-Brockmann's *Musica Viva* poster (1957, MoMA), so size and price are easy to find. I'll reuse my [Brand Studio](https://github.com/KonradSikorski5/is117-brand-studio-ks2334) style guide.
+- **Look:** Modernist-inspired. I'm using the idea of a strong grid and clear order from Josef Müller-Brockmann's _Musica Viva_ poster (1957, MoMA), so size and price are easy to find. I'll reuse my [Brand Studio](https://github.com/KonradSikorski5/is117-brand-studio-ks2334) style guide.
 - **Visual alternatives:** I'll compare a modernist version (strict grid, clear order) with a postmodernist version (bolder, mixed layout) from my Brand Studio work. Same shirt, price, and headline in both.
 
 ## Honest reasons to act
 
-| Element | Principle | Why it could help | Limit |
-| --- | --- | --- | --- |
-| Free size guide with real measurements before the Add to Cart button | Reciprocity | Useful help first builds trust | It doesn't prove more sales |
-| Plain, friendly student voice | Liking | Feels like it's from someone like them | I can't measure this yet |
+| Element                                                              | Principle   | Why it could help                      | Limit                       |
+| -------------------------------------------------------------------- | ----------- | -------------------------------------- | --------------------------- |
+| Free size guide with real measurements before the Add to Cart button | Reciprocity | Useful help first builds trust         | It doesn't prove more sales |
+| Plain, friendly student voice                                        | Liking      | Feels like it's from someone like them | I can't measure this yet    |
 
 I won't use fake reviews, fake countdowns, fake "low stock" messages, or fabric claims I can't prove.
 
@@ -69,10 +69,10 @@ I won't use fake reviews, fake countdowns, fake "low stock" messages, or fabric 
 Peer feedback is in this repo's GitHub issues. Each issue records my decision, the commit that made the change, how I checked it, and whether it's closed.
 
 | Issue | Decision | Commit | Check | Status |
-| --- | --- | --- | --- | --- |
-| _#_ | | | | |
-| _#_ | | | | |
-| _#_ | | | | |
+| ----- | -------- | ------ | ----- | ------ |
+| _#_   |          |        |       |        |
+| _#_   |          |        |       |        |
+| _#_   |          |        |       |        |
 
 ## AI use
 
