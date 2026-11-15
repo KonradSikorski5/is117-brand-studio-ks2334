@@ -38,6 +38,4 @@ No visual change was needed. To keep it from breaking later, I added a browser t
 
 Follow only the steps above, without asking me anything. Record the result here:
 
-| Reviewer        | Date | Got the expected result? | Notes |
-| --------------- | ---- | ------------------------ | ----- |
-| Not yet retried |      |                          |       |
+| Safwaan Arif | Nov 15, 2026 | Yes, worked — keyboard focus ring is clearly visible on all size options. |
