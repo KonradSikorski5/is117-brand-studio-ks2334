@@ -13,9 +13,10 @@ This is the durable agreement between the learner and agent. Keep it concise and
 ## Current stage
 
 - Stage: BRAND-001 merged into `main` on Nov 1, 2026 (PR #2) and published at https://konradsikorski5.github.io/is117-brand-studio-ks2334/.
+- Plan: submitted Nov 16, 2026. See [Plan](#plan) (two approaches, four stories with checks, simulated checkout, and SQLite).
 - Current feature: `BRAND-001` — first branded storefront and live style guide.
 - Status: Issue: https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/1 · Pull request: https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/2
-- Next small decision: None selected yet.
+- Next small decision: Build stories S1–S4 from the [Plan](#plan), starting with the SQLite checkout (due Nov 23).
 
 ## Product boundary
 
@@ -89,6 +90,56 @@ Reviewer: Safwaan (safwaanarif). Decisions made Nov 12, 2026, with AI help (Clau
 | [#3](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/3) | Add fabric thickness (GSM or yarn count) so buyers know the shirt is not see-through | Decline adding a number | The shirt is fictional. I have no real fabric to measure, so any GSM number would be made up. The page already says "Product claims: None." If it became a real shirt, I would weigh a sample (GSM) and photograph it under bright light first. | Reason recorded in this table ([PR #6](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/6), merged Nov 12)                                                                                     | Storefront still shows "Product claims: None" and no fabric numbers. `npm run check` passed on [PR #6](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/6).                                                                                                                                           | Pending: Safwaan has not retried yet (as of Nov 15). |
 | [#4](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/4) | Add wash-test or shrinkage data for the collar                                       | Decline adding data     | The page does not say the collar holds its shape. A search of the repo found no collar or durability claim. Adding shrink numbers without a real wash test would be fake proof, and that breaks my own rule in Research.md.                     | Reason recorded in this table ([PR #6](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/6), merged Nov 12)                                                                                     | Repo search for collar, durable, shrink, and wash found no product claims. `npm run check` passed on [PR #6](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/6).                                                                                                                                     | Pending: Safwaan has not retried yet (as of Nov 15). |
 | [#5](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/5) | Make sure keyboard users can see which size is focused                               | Keep, and add a test    | It already worked. Tabbing to the sizes showed a dark outline (3px, 4px offset) and arrow keys moved it from S to M.                                                                                                                            | New browser test "keyboard: a focused size option shows a visible outline (#5)" in `tests/browser/studio.spec.js` ([PR #6](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/6), merged Nov 12) | Keyboard check in a real browser. 11 browser tests passed locally and on [PR #6](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/6). Removed the outline on purpose and the new test failed, then restored it. Steps written up in [docs/help-ticket-size-focus.md](docs/help-ticket-size-focus.md). | Pending: Safwaan has not retried yet (as of Nov 15). |
+
+## Plan
+
+Plan date: Nov 16, 2026. This is a plan. Nothing below is built yet unless it says so.
+
+**Goal:** a student who goes from class straight to a shift picks the right size, sees the full total, and finishes a demo order fast.
+
+**Carried forward:** promise "Built for long days on your feet, from hour one to hour nine." · Everyman, voice chill, straight-up, encouraging · the chosen postmodernist look (yellow, blocky type, Paula Scher reference) and [style guide](https://konradsikorski5.github.io/is117-brand-studio-ks2334/styleguide.html) · the two persuasion choices above (Unity and Commitment).
+
+**Why these stories:** my [research](Research.md) found the biggest problem was not knowing the full cost. ASKET's add-to-cart panel showed no shipping, and Uniqlo's cart listed it as TBD. My audience also worries about getting the wrong fit.
+
+### Two approaches
+
+Both use the **same** shirt, price, headline, size guide, and checkout. Both keep the chosen postmodernist look. Only the **order** changes.
+
+|                   | A. Shop first                                                                                                                | B. Your day first                                                                           |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| First thing shown | Price, size guide, and size buttons together                                                                                 | The "Is this your day?" check and the class-to-shift story, then the same shopping controls |
+| Main action       | Size guide → size and quantity → review total → demo checkout → confirmation                                                 | Same                                                                                        |
+| Why try it        | A student between class and work wants to buy fast                                                                           | A first-time visitor may need to see it's for them first                                    |
+| What I'll compare | Give a classmate the same task in A and B and record whether they found the size guide, the full total, and the confirmation | Same task                                                                                   |
+
+### User stories, features, and checks (same in A and B)
+
+| ID  | Story                                                                                         | Essential feature                                                                                                         | Check (someone else can tell if it passes)                                                                                   |
+| --- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| S1  | As a student unsure about fit, I want measurements next to the sizes so I pick the right one. | F1: a size guide button next to S/M/L/XL that opens the chest and length for each size                                    | Open the guide, close it, and the size I already picked is still selected                                                    |
+| S2  | As a student on a budget, I want the full total before I check out so there's no surprise.    | F2: quantity 1–5 and a summary showing price × quantity, a demo shipping line, and the total                              | Pick M and quantity 2: the summary shows M, 2 × $28 = $56, a shipping line, and the total before the checkout button         |
+| S3  | As a shopper, I want a clear confirmation so I know the demo order went through.              | F3: a demo checkout form (size + a fake email) that gives a demo order number                                             | With no size or a bad email, nothing is saved and an error shows. With valid info, a confirmation with an order number shows |
+| S4  | As the store owner, I want orders saved in a real database so they're still there later.      | F4: a local Node server that saves each order in **SQLite** and works out the total from its own price, not the browser's | Make an order, stop the server, start it again, and the same order number is still in "Demo order history"                   |
+
+**Keep from before:** the size buttons keep their visible keyboard outline (issue #5 test).
+
+**Deferred (not building):** real payments, accounts, discount codes, reviews, and stock counts.
+
+### Data, states, and limits
+
+- **Inputs:** size (S, M, L, XL), quantity 1–5, and a fake email like `demo@example.test`. The email is checked but **not** saved.
+- **Data:** price, size measurements, and orders. In local server mode, orders go in SQLite. The public GitHub Pages preview can't run a database, so it uses browser storage and will say so on the page.
+- **States:** size missing → error · ready to check out · saving · confirmation with order number · save failed → error, with no fake success message.
+- **SQLite plan:** start from the course's Campus Cotton SQLite starter (`server.mjs` with Node 24's built-in `node:sqlite`). I'll change the product name, price ($28), and look to Full Shift and explain each change. My computer has Node 24.
+- **Limits:** Full Shift is fictional. The size measurements will be class assumptions, not real garment data, and will be labeled that way.
+
+### Review
+
+| Issue                                                                                   | What the classmate does                                                    | Status                                                                |
+| --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| [#7 Plan review](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/7) | Explains one story back plus how to check it, and asks one useful question | Waiting for Safwaan. His question and my change will be recorded here |
+
+**AI help:** I used Claude to organize this plan in the course format. The stories come from my own research and brand decisions, and I checked the facts against Research.md and this SPEC.
 
 ## Later
 
