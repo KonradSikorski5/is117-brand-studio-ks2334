@@ -1,40 +1,63 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("negative: choosing no size explains the problem and keeps the bag empty", async ({
+const placeOrder = (page) =>
+  page.getByRole("button", { name: "Place demo order", exact: true }).click();
+
+test("negative: no size or a bad email shows an error and saves nothing (S3)", async ({
   page,
 }) => {
   await page.goto("/");
-  await page
-    .getByRole("button", { name: "Add to demo bag", exact: true })
-    .click();
+  await expect(page.locator("#mode-note")).toContainText("SQLite");
+  const before = await page.locator("#order-count").textContent();
+  await placeOrder(page);
   await expect(page.locator("#size-error")).toBeVisible();
-  await expect(page.locator("#size-error")).not.toBeEmpty();
-  await expect(page.locator("#bag-count")).toHaveText("0");
+  await page.locator('input[name="size"][value="M"]').check();
+  await page.getByLabel("Email (use a fake one)").fill("not-an-email");
+  await placeOrder(page);
+  await expect(page.locator("#email-error")).toBeVisible();
+  await expect(page.locator("#order-result")).toBeEmpty();
+  await expect(page.locator("#order-count")).toHaveText(before);
 });
 
-test("positive: a shopper can choose sizes, add items, and empty the demo bag", async ({
+test("size guide: opening and closing it keeps the chosen size (S1)", async ({
   page,
 }) => {
   await page.goto("/");
-  await page.locator('input[name="size"][value="M"]').check();
-  await page
-    .getByRole("button", { name: "Add to demo bag", exact: true })
-    .click();
-  await expect(page.locator("#bag-count")).toHaveText("1");
-  await expect(page.locator("#bag-status")).toContainText("M");
   await page.locator('input[name="size"][value="L"]').check();
-  await page
-    .getByRole("button", { name: "Add to demo bag", exact: true })
-    .click();
-  await expect(page.locator("#bag-count")).toHaveText("2");
-  await page
-    .getByRole("button", { name: "Empty demo bag", exact: true })
-    .click();
-  await expect(page.locator("#bag-count")).toHaveText("0");
-  await page.reload();
-  await expect(page.locator("#bag-count")).toHaveText("0");
+  const guide = page.getByText("Size guide (chest and length)");
+  await guide.click();
+  await expect(page.getByRole("table")).toBeVisible();
+  await expect(page.getByRole("row", { name: /^L 42–44 30$/ })).toBeVisible();
+  await guide.click();
+  await expect(page.locator('input[name="size"][value="L"]')).toBeChecked();
+  await expect(page.locator("#summary-size")).toHaveText("L");
 });
+
+for (const route of ["/", "/b.html"]) {
+  test(`positive: M and quantity 2 shows $56.00, then the order saves in SQLite (S2, S3, S4) ${route}`, async ({
+    page,
+  }) => {
+    await page.goto(route);
+    await expect(page.locator("#mode-note")).toContainText("SQLite");
+    await page.locator('input[name="size"][value="M"]').check();
+    await page.getByLabel("Quantity").selectOption("2");
+    await expect(page.locator("#summary-size")).toHaveText("M");
+    await expect(page.locator("#summary-items")).toHaveText(
+      "2 × $28.00 = $56.00",
+    );
+    await expect(page.locator("#summary-shipping")).toHaveText("$0.00");
+    await expect(page.locator("#summary-total")).toHaveText("$56.00");
+    await page.getByLabel("Email (use a fake one)").fill("demo@example.test");
+    await placeOrder(page);
+    const result = page.locator("#order-result");
+    await expect(result).toContainText("Saved in SQLite.");
+    await expect(result).toContainText("$56.00");
+    const reference = (await result.textContent()).match(/FS-[0-9A-F]{6}/)[0];
+    await page.reload();
+    await expect(page.locator("#order-history")).toContainText(reference);
+  });
+}
 
 test("keyboard: the skip link reaches main and the size controls work without a mouse", async ({
   page,
@@ -50,19 +73,16 @@ test("keyboard: the skip link reaches main and the size controls work without a 
   await page.keyboard.press("ArrowRight");
   await expect(page.locator('input[name="size"][value="M"]')).toBeChecked();
   await page.keyboard.press("Tab");
-  await expect(
-    page.getByRole("button", { name: "Add to demo bag", exact: true }),
-  ).toBeFocused();
-  await page.keyboard.press("Enter");
-  await expect(page.locator("#bag-count")).toHaveText("1");
+  await expect(page.getByText("Size guide (chest and length)")).toBeFocused();
+  await expect(page.locator("#summary-size")).toHaveText("M");
 });
 
 test("keyboard: a focused size option shows a visible outline (#5)", async ({
   page,
 }) => {
   await page.goto("/");
-  // Reach the sizes with real keys: the demo bag link comes right before them.
-  await page.getByRole("link", { name: "View demo bag" }).focus();
+  // Reach the sizes with real keys: the orders link comes right before them.
+  await page.getByRole("link", { name: "View demo orders" }).focus();
   await page.keyboard.press("Tab");
   for (const size of ["S", "M"]) {
     const radio = page.locator(`input[name="size"][value="${size}"]`);
@@ -80,7 +100,7 @@ test("keyboard: a focused size option shows a visible outline (#5)", async ({
   }
 });
 
-for (const route of ["/", "/styleguide.html", "/studio.html"]) {
+for (const route of ["/", "/b.html", "/styleguide.html", "/studio.html"]) {
   test(`page integrity and automated accessibility: ${route}`, async ({
     page,
   }) => {

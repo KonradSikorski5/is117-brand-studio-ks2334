@@ -13,8 +13,13 @@ test("development refreshes saved HTML, CSS, JavaScript and assets; plain previe
   await cp(new URL("../../public/", import.meta.url), publicRoot, {
     recursive: true,
   });
-  const development = createApp({ publicRoot, development: true });
-  const preview = createApp({ publicRoot });
+  const databasePath = path.join(directory, "orders.sqlite");
+  const development = createApp({
+    publicRoot,
+    development: true,
+    databasePath,
+  });
+  const preview = createApp({ publicRoot, databasePath });
   development.listen(0, "127.0.0.1");
   preview.listen(0, "127.0.0.1");
   await Promise.all([
@@ -42,16 +47,13 @@ test("development refreshes saved HTML, CSS, JavaScript and assets; plain previe
     await plain.goto(`http://127.0.0.1:${preview.address().port}`);
     const originalTitle = await plain.title();
     await page.locator('input[name="size"][value="M"]').check();
-    await page
-      .getByRole("button", { name: "Add to demo bag", exact: true })
-      .click();
-    await expect(page.locator("#bag-count")).toHaveText("1");
+    await expect(page.locator("#summary-size")).toHaveText("M");
 
     await save("index.html", (html) =>
       html.replace("</title>", " — saved HTML</title>"),
     );
     await expect(page).toHaveTitle(`${originalTitle} — saved HTML`);
-    await expect(page.locator("#bag-count")).toHaveText("0");
+    await expect(page.locator("#summary-size")).toHaveText("Not chosen");
 
     await save(
       "styles.css",

@@ -14,13 +14,14 @@ This is the durable agreement between the learner and agent. Keep it concise and
 
 - Stage: BRAND-001 merged into `main` on Nov 1, 2026 (PR #2) and published at https://konradsikorski5.github.io/is117-brand-studio-ks2334/.
 - Plan: submitted Nov 16, 2026. See [Plan](#plan) (two approaches, four stories with checks, simulated checkout, and SQLite).
-- Current feature: `BRAND-001` — first branded storefront and live style guide.
+- Current feature: Build A/B: size guide, full total, demo checkout, and SQLite orders (see [Build](#build)). Earlier: `BRAND-001`, the first branded storefront and live style guide.
 - Status: Issue: https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/1 · Pull request: https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/2
-- Next small decision: Build stories S1–S4 from the [Plan](#plan), starting with the SQLite checkout (due Nov 23).
+- Build: done Nov 16, 2026. See [Build](#build): Version A and B, checkout, and SQLite. The classmate A/B test is pending.
+- Next small decision: run the classmate A/B test (Nov 19), then pick A or B to launch.
 
 ## Product boundary
 
-The product is the same white T-shirt throughout the comparison. The baseline offers a size selector and temporary demo bag. No real orders, payment, accounts, or persistence. Keep product facts stable between directions; do not add unsupported claims about materials, manufacturing, sustainability, fit, delivery, scarcity, reviews, or sales.
+The product is the same white T-shirt throughout the comparison. The store now has a size guide, quantity, a full total, and a demo checkout. Demo orders are saved in a local SQLite database (or the browser on GitHub Pages). No real orders, payment, accounts, or shipping. Keep product facts stable between directions; do not add unsupported claims about materials, manufacturing, sustainability, fit, delivery, scarcity, reviews, or sales.
 
 ## Audience hypotheses
 
@@ -140,6 +141,51 @@ Both use the **same** shirt, price, headline, size guide, and checkout. Both kee
 | [#7 Plan review](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/7) | Explains one story back plus how to check it, and asks one useful question | Safwaan explained S2 correctly ([comment](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/7#issuecomment-6902945621)) and asked: what if quantity is over 5, or the price is changed in DevTools? **Decision:** reject it with an error and save nothing, instead of clamping, and use the server's own price. Added to S4 and Inputs. Waiting for his retry |
 
 **AI help:** I used Claude to organize this plan in the course format. The stories come from my own research and brand decisions, and I checked the facts against Research.md and this SPEC.
+
+## Build
+
+Built Nov 16, 2026, from the [Plan](#plan). The code was written with AI help (Claude). I chose the scope, and the checks below were actually run.
+
+- **Version A, shop first:** [live](https://konradsikorski5.github.io/is117-brand-studio-ks2334/) · `public/index.html`
+- **Version B, your day first:** [live](https://konradsikorski5.github.io/is117-brand-studio-ks2334/b.html) · `public/b.html`
+- **Shared code:** `public/shop.js` (size guide, total, checkout, history) · `server.mjs` (SQLite orders) · `public/styles.css`
+
+Both versions have the same shirt, price, headline, size guide, and checkout. Only the order changes: A puts price and sizes first, and B puts "Is this your day?" first.
+
+### What each story does now
+
+| Story            | Built                                                                                                                                                       | Automated check (passes)                                                                                                                      |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| S1 size guide    | "Size guide (chest and length)" opens a table next to the sizes. Measurements are labeled as class assumptions                                              | Pick L, open and close the guide, and L is still picked                                                                                       |
+| S2 full total    | Quantity 1–5 and a "Your total" box with size, shirts, demo shipping ($0.00), and total                                                                     | M and quantity 2 shows "2 × $28.00 = $56.00" and a total of $56.00, on both A and B                                                           |
+| S3 demo checkout | Fake email plus "Place demo order". Errors show for no size or a bad email                                                                                  | No size or a bad email shows an error and saves nothing. A valid order shows an FS- order number                                              |
+| S4 SQLite        | `server.mjs` saves orders in SQLite and uses its own $28 price. Quantity outside 1–5, a bad size, or a bad email returns an error and nothing is saved (#7) | A server test sends price $1 and gets total $56.00. Quantities 0, 6, and 2.5 are rejected. An order is still listed after the server restarts |
+
+### How to run it
+
+```bash
+npm ci
+npm run dev
+```
+
+Open the printed address. The page says **"Local server mode: orders are saved in a SQLite database."** The terminal prints where the database file is. On GitHub Pages there's no server, so the page says it's in **preview mode** and saves orders in the browser only.
+
+### Checks I ran (Nov 16)
+
+- `npm run lint` passes. `npm test`: 10 of 10 server tests pass. `npx playwright test`: 15 of 15 browser tests pass, including axe accessibility on A and B and the narrow-screen check.
+- **The tests can actually fail:** I changed the price to $27 and allowed quantity 6, and 2 server tests failed. Then I put it back.
+- **By hand, in a real browser:** picked M and quantity 2, saw $56.00, and placed a demo order. It showed "Demo order FS-1AF886 … Saved in SQLite." I stopped the server, started it again, and `/api/orders` still listed FS-1AF886.
+
+### Classmate A/B test (pending)
+
+**Task:** "Buy 2 shirts in size M with a fake email and tell me the order number." Do it on A, then B, with no help.
+
+| Version | Found size guide? | Saw full total before checkout? | Got an order number? | Notes                    |
+| ------- | ----------------- | ------------------------------- | -------------------- | ------------------------ |
+| A       | Not tested yet    | Not tested yet                  | Not tested yet       | Planned in class, Nov 19 |
+| B       | Not tested yet    | Not tested yet                  | Not tested yet       | Planned in class, Nov 19 |
+
+**Launch choice:** not decided. I'll pick A or B after the classmate test, based on which one got through the task more easily, and write the reason here.
 
 ## Later
 

@@ -1,4 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
+import { tmpdir } from "node:os";
+import path from "node:path";
+
+// A fresh SQLite file for every test run, so old demo orders never interfere.
+const testDatabase = path.join(
+  tmpdir(),
+  `full-shift-test-${Date.now()}.sqlite`,
+);
 
 export default defineConfig({
   testDir: "./tests/browser",
@@ -12,7 +20,7 @@ export default defineConfig({
   webServer: {
     command: "node server.mjs",
     url: "http://127.0.0.1:5174",
-    env: { PORT: "5174" },
+    env: { PORT: "5174", FULLSHIFT_DB: testDatabase },
     reuseExistingServer: false,
     timeout: 15000,
   },

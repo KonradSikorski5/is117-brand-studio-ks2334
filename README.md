@@ -56,7 +56,10 @@ You work at your own pace. There is no required class demonstration, quiz, separ
 
 | File                                   | Purpose                                                                                                    |
 | -------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `public/index.html`                    | Working storefront; the first branding feature is still pending                                            |
+| `public/index.html`                    | Full Shift storefront, Version A (shop first)                                                              |
+| `public/b.html`                        | Full Shift storefront, Version B (your day first), same checkout                                           |
+| `public/shop.js`                       | Shared size guide, total, demo checkout, and order history                                                 |
+| `server.mjs`                           | Local server; saves demo orders in SQLite (`/api/orders`)                                                  |
 | `public/styleguide.html`               | Live identity board using the storefront's shared styles and assets                                        |
 | `public/studio.html`                   | Short studio overview, also [available online](https://kaw393939.github.io/is117-brand-studio/studio.html) |
 | [SPEC.md](SPEC.md)                     | The concise record of your chosen decisions and evidence                                                   |
