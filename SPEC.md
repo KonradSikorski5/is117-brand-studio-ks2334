@@ -12,7 +12,7 @@ This is the durable agreement between the learner and agent. Keep it concise and
 
 ## Current stage
 
-- Stage: BRAND-001 built, checked, and ready to merge.
+- Stage: BRAND-001 merged into `main` on Nov 1, 2026 (PR #2) and published at https://konradsikorski5.github.io/is117-brand-studio-ks2334/.
 - Current feature: `BRAND-001` — first branded storefront and live style guide.
 - Status: Issue: https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/1 · Pull request: https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/2
 - Next small decision: None selected yet.
@@ -33,14 +33,14 @@ The product is the same white T-shirt throughout the comparison. The baseline of
 
 ## Early brand brief
 
-| Decision                            | Agreement                                                                                          |
-| ----------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Brand name                          | Full Shift                                                                                         |
-| One-sentence promise                | Built for long days on your feet, comfortable at hour one and hour nine.                           |
-| Primary archetype                   | Everyman — down to earth and relatable                                                             |
-| Three voice traits                  | Chill, straight-up, encouraging                                                                    |
-| One example line in this voice      | "Long day ahead? This one's got you."                                                              |
-| Learner's predicted audience effect | "They would be more likely to buy it because its made for them while working and being in school." |
+| Decision                            | Agreement                                                                                                                                                             |
+| ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Brand name                          | Full Shift                                                                                                                                                            |
+| One-sentence promise                | Built for long days on your feet, from hour one to hour nine. (Changed Nov 15: removed "comfortable" because the shirt is fictional and comfort cannot be supported.) |
+| Primary archetype                   | Everyman — down to earth and relatable                                                                                                                                |
+| Three voice traits                  | Chill, straight-up, encouraging                                                                                                                                       |
+| One example line in this voice      | "Long day ahead? This one's got you."                                                                                                                                 |
+| Learner's predicted audience effect | "They would be more likely to buy it because its made for them while working and being in school."                                                                    |
 
 Help received: the AI coach suggested options for the secondary persona's concern, the name, promise, archetype, voice and example line; the learner chose each one. The primary situation, the 8–10 hours on their feet, and the predicted effect are the learner's own.
 
@@ -48,7 +48,7 @@ Help received: the AI coach suggested options for the secondary persona's concer
 
 | Item                                              | Agreement or evidence                                                                                                                                                                                                                                                                            |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Shared headline / support / action                | "Long day ahead? This one's got you." / "Comfortable from first class to closing time." / "Choose your size" (learner picked from two AI options)                                                                                                                                                |
+| Shared headline / support / action                | "Long day ahead? This one's got you." / "Made for first class to closing time." (changed Nov 15 from "Comfortable from first class to closing time." because comfort cannot be supported) / "Choose your size" (learner picked from two AI options)                                              |
 | Modernist preview, reference, and annotations     | `public/hero-previews.html` Preview A. Reference: Josef Müller-Brockmann, Musica Viva poster, 1959 (V&A, https://collections.vam.ac.uk/item/O110243). White space, grid, one red block, plain sans-serif. Risk: too plain for a chill brand.                                                     |
 | Postmodernist preview, reference, and annotations | `public/hero-previews.html` Preview B. Reference: Paula Scher, Bring in 'da Noise, Bring in 'da Funk poster, 1995 (Cooper Hewitt, https://collection.cooperhewitt.org/objects/18655855). Blocky type, mixed sizes, tilted line, loud color. Risk: could look messy to the "looks sharp" visitor. |
 | Chosen direction and reason                       | Postmodernist. Learner: the modernist one was "too simple" and the yellow one "looked like a site i would buy from." Learner asked to fix overlapping words; fixed with spacing.                                                                                                                 |
