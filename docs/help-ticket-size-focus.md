@@ -38,8 +38,8 @@ No visual change was needed. To keep it from breaking later, I added a browser t
 
 Follow only the steps above, without asking me anything. Record the result here:
 
-| Reviewer     | Date         | Got the expected result? | Notes                                                       |
-| ------------ | ------------ | ------------------------ | ----------------------------------------------------------- |
-| Safwaan Arif | Nov 15, 2026 | Yes, worked              | keyboard focus ring is clearly visible on all size options. |
+| Reviewer     | Date         | Got the expected result?                                                  |
+| ------------ | ------------ | ------------------------------------------------------------------------- |
+| Safwaan Arif | Nov 15, 2026 | Yes, worked — keyboard focus ring is clearly visible on all size options. |
 
 Recorded by Safwaan in [PR #8](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/8). I added back the table header so it displays correctly; his words are unchanged.
