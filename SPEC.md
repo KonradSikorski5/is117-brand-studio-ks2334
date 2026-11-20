@@ -94,7 +94,7 @@ Reviewer: Safwaan (safwaanarif). Decisions made Nov 12, 2026, with AI help (Clau
 
 ## Plan
 
-Plan date: Nov 16, 2026. This is a plan. Nothing below is built yet unless it says so.
+Plan date: Nov 16, 2026. **Updated Nov 20, 2026** to follow the [IS117 Project Plan Guide](https://keithwilliams.org/is117-demo-days/process/project-plan/) (due Nov 23). It adds build order, a React idea, a framework choice, hosting and storage, mobile, accessibility, and privacy, and search and sharing.
 
 **Goal:** a student who goes from class straight to a shift picks the right size, sees the full total, and finishes a demo order fast.
 
@@ -133,6 +133,63 @@ Both use the **same** shirt, price, headline, size guide, and checkout. Both kee
 - **States:** size missing → error · ready to check out · saving · confirmation with order number · save failed → error, with no fake success message.
 - **SQLite plan:** start from the course's Campus Cotton SQLite starter (`server.mjs` with Node 24's built-in `node:sqlite`). I'll change the product name, price ($28), and look to Full Shift and explain each change. My computer has Node 24.
 - **Limits:** Full Shift is fictional. The size measurements will be class assumptions, not real garment data, and will be labeled that way.
+
+### Build first, save for later
+
+- **Build first:** S2 (full total) and S3 (demo checkout). My research found surprise costs were the biggest problem, so the total has to work before anything else.
+- **Save for later:** a "Clear demo orders" button. For now, demo orders can be cleared in the browser's site settings (see Hosting and browser storage).
+
+### React idea from the documentary
+
+The documentary ([React.js: The Documentary](https://www.youtube.com/watch?v=8pDqJVdNa44)) is about how a small team at Facebook built React around one idea: **build the page from small, reusable pieces (components), and let the page update itself when a value (state) changes.**
+
+**On my site:**
+
+- **Components:** the size picker, the quantity box, and the "Your total" summary are separate pieces of the page.
+- **State:** the selected size and the quantity. When a shopper picks **M** and changes quantity to **2**, those two values change, and the summary updates on its own to show **2 × $28.00 = $56.00**. Nobody has to reload or click "calculate."
+- **What the page shows when state changes:** no size picked → "Not chosen" in the summary and an error if they try to check out. Size picked → the summary shows that size and the new total.
+
+### Framework and libraries
+
+I asked AI (Claude) to compare two frameworks for my main task: pick a size, see the total, and place a demo order on GitHub Pages.
+
+|                                | Next.js                                                            | SvelteKit                                                 |
+| ------------------------------ | ------------------------------------------------------------------ | --------------------------------------------------------- |
+| Static build for GitHub Pages  | `output: 'export'` in `next.config.js`                             | `adapter-static`, with `paths.base` set to the repo name  |
+| What can't run on GitHub Pages | Anything that needs a server, like Server Actions and cookies      | Same idea: pages must be prerendered, with no server code |
+| Fit for my site                | Uses React, the same component and state idea from the documentary | Also uses components, with less code                      |
+
+- **My choice: Next.js with static export.** It's built on React, so I can use the documentary's idea directly: a `SizePicker` component and an `OrderSummary` component that share the selected size and quantity as state. Everything in my main task runs in the browser, so it works as a static export.
+- **One tradeoff:** a static export can't run server code, so my **SQLite** order saving can't run on GitHub Pages. The public demo saves orders in the browser, and the separate local `server.mjs` keeps the SQLite version for `npm run dev`.
+- **AI claim I checked:** AI said a Next.js static export can't use Server Actions. **Checked Nov 20 in the official [Next.js static export docs](https://nextjs.org/docs/app/guides/static-exports):** "Server Actions" and "Cookies" are listed under "Unsupported Features." ✅ True.
+- **Libraries:** none planned. The browser already does form validation (`required`, `type="email"`) and storage (`localStorage`), and Node already includes SQLite (`node:sqlite`).
+- **Right now:** the current Build is plain HTML, CSS, and JavaScript, and it already works and passes its tests. Moving it into Next.js components is the next Build step.
+
+### Hosting and browser storage
+
+- **Hosting:** GitHub Pages, at https://konradsikorski5.github.io/is117-brand-studio-ks2334/ (published, and links and images checked from the public URL).
+- **What the demo saves (in `localStorage`, key `full-shift-demo-orders`):** the fake order reference (like FS-857C81), the size, the quantity, and the total. Up to 20 orders.
+- **After a reload in the same browser:** the order reference and total are still in "Demo order history." **Check:** place a fake order, reload, and the same reference and total are still listed.
+- **How to clear it:** delete the site's data in the browser (Settings → Privacy → site data, or DevTools → Application → Local Storage → delete `full-shift-demo-orders`). A "Clear demo orders" button is saved for later.
+- **Optional research:** Shopify could run a real store, Stripe could take real payments, and Vercel could host a Next.js app with server code. **For class: fake orders only, no real payment or customer details.**
+
+### Mobile, accessibility, and privacy
+
+- **Task I'll test:** buy 2 shirts in size M with a fake email, on a phone and with only the keyboard (Tab, Shift+Tab, Enter, arrow keys).
+- **Passing looks like:** text is readable without zooming, the size buttons are easy to tap, nothing runs off the screen, every focused control has a visible outline, and every form field has a label.
+- **One mistake and recovery:** a shopper clicks "Place demo order" without picking a size. The site shows "Choose a size before placing your demo order." and moves focus to the size buttons, so they can fix it right away. Nothing is saved.
+- **Images and fonts:** the shirt image (`white-shirt.svg`) came with the course template (MIT license). I made the logo (`full-shift-logo.svg`) in BRAND-001. The fonts are system fonts already on the visitor's device (Impact and system-ui), so no font files are downloaded or licensed.
+- **Privacy (data minimization):** the demo stores only the order reference, size, quantity, and total. The email is checked but **never saved or sent**. Before collecting real customer information, I'd research what personal data I actually need, how I'd explain its use, and when I'd delete it (EU data-protection principles).
+
+### Search, sharing, and one measure
+
+- **Page title:** "Full Shift — the white T-shirt for class-to-shift days" (already on the page).
+- **Description:** "One plain white tee for students who go from class straight to a shift. Pick your size and see the full price before you check out."
+- **Channel:** Instagram, where my audience (college students) already is.
+- **Sample post:** "Class at 9, shift at 3? One white tee for the whole day. Check your size and see the full price up front 👕 link in bio"
+- **Link preview sketch:** title "Full Shift — one tee, class to closing" · description "See your size and full price before you check out." · image: the white shirt on the yellow background.
+- **After they click:** pick a size and place a demo order.
+- **One measure:** ask a classmate to start the demo checkout and watch whether they reach the order confirmation without help. Note where they hesitate or get stuck. No analytics or tracking installed.
 
 ### Review
 
