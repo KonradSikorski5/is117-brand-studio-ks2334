@@ -17,7 +17,7 @@ This is the durable agreement between the learner and agent. Keep it concise and
 - Current feature: Build A/B: size guide, full total, demo checkout, and SQLite orders (see [Build](#build)). Earlier: `BRAND-001`, the first branded storefront and live style guide.
 - Status: Issue: https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/1 · Pull request: https://github.com/KonradSikorski5/is117-brand-studio-ks2334/pull/2
 - Build: done Nov 16, 2026. See [Build](#build): Version A and B, checkout, and SQLite. The classmate A/B test is pending.
-- Next small decision: run the classmate A/B test (Nov 19), then pick A or B to launch.
+- Next small decision: run the classmate A/B test in class, then pick A or B to launch (Build due Dec 3).
 
 ## Product boundary
 
@@ -94,7 +94,20 @@ Reviewer: Safwaan (safwaanarif). Decisions made Nov 12, 2026, with AI help (Clau
 
 ## Plan
 
-Plan date: Nov 16, 2026. **Updated Nov 20, 2026** to follow the [IS117 Project Plan Guide](https://keithwilliams.org/is117-demo-days/process/project-plan/) (due Nov 23). It adds build order, a React idea, a framework choice, hosting and storage, mobile, accessibility, and privacy, and search and sharing.
+Plan date: Nov 16, 2026. Updated Nov 20 for the [IS117 Project Plan Guide](https://keithwilliams.org/is117-demo-days/process/project-plan/), and **updated Nov 24 for the professor's Nov 23 announcement**. **Due Nov 30, 11:30 a.m.** Build is due Dec 3, and Improve is due Dec 6.
+
+**Where this plan lives:** in this project record (`SPEC.md`), which is my documentation. It is **not** on the storefront. The storefront is the finished site. It's a GitHub Pages store with a simulated checkout and demo data only: no real payments and no real customer information.
+
+### One small idea
+
+**Show the full total before checkout.** My research found the biggest problem was surprise costs (ASKET showed no shipping, and Uniqlo listed it as "TBD"). So the one idea I'm building around is a small "Your total" box with size, shirts, demo shipping, and the total, before the "Place demo order" button. I can explain it in one sentence: _students on a budget shouldn't get surprised at checkout._
+
+### How I made this plan
+
+1. **AI read my research.** I gave Claude my [Research.md](Research.md) and asked it to compare options for the page.
+2. **Compared options:** two page orders (shop first vs. "your day" first, below) and two frameworks (Next.js vs. SvelteKit, below).
+3. **Asked for short stories and simple checks** (S1–S4, below).
+4. **I read and revised before any code.** I removed "comfortable" claims I couldn't prove, after my professor's feedback. I added a demo shipping line, because my research was about surprise costs. After Safwaan's question, I decided bad quantities and changed prices get rejected, not quietly fixed.
 
 **Goal:** a student who goes from class straight to a shift picks the right size, sees the full total, and finishes a demo order fast.
 
@@ -175,11 +188,13 @@ I asked AI (Claude) to compare two frameworks for my main task: pick a size, see
 
 ### Mobile, accessibility, and privacy
 
-- **Task I'll test:** buy 2 shirts in size M with a fake email, on a phone and with only the keyboard (Tab, Shift+Tab, Enter, arrow keys).
-- **Passing looks like:** text is readable without zooming, the size buttons are easy to tap, nothing runs off the screen, every focused control has a visible outline, and every form field has a label.
-- **One mistake and recovery:** a shopper clicks "Place demo order" without picking a size. The site shows "Choose a size before placing your demo order." and moves focus to the size buttons, so they can fix it right away. Nothing is saved.
-- **Images and fonts:** the shirt image (`white-shirt.svg`) came with the course template (MIT license). I made the logo (`full-shift-logo.svg`) in BRAND-001. The fonts are system fonts already on the visitor's device (Impact and system-ui), so no font files are downloaded or licensed.
-- **Privacy (data minimization):** the demo stores only the order reference, size, quantity, and total. The email is checked but **never saved or sent**. Before collecting real customer information, I'd research what personal data I actually need, how I'd explain its use, and when I'd delete it (EU data-protection principles).
+**Task for every check:** buy 2 shirts in size M with a fake email.
+
+- **Keyboard check:** do the whole task with only Tab, Shift+Tab, Enter, Space, and the arrow keys. **Passes if** every focused control has a visible outline (the size buttons use a 3px outline), the order goes through, and nothing needs a mouse.
+- **Phone-layout check:** do the whole task on a phone, or at 375px wide in the browser. **Passes if** text is readable without zooming, the size buttons are easy to tap, and nothing runs off the screen (no sideways scrolling).
+- **How I'll protect private data:** the demo uses **demo data only**. It saves just the order reference, size, quantity, and total. The email is checked but **never saved or sent**, and no real payment or customer information is collected. Orders stay in the visitor's own browser and can be cleared in site settings. Before collecting real data, I'd research what I actually need, how I'd explain it, and when I'd delete it (data minimization, an EU data-protection principle).
+- **One mistake and recovery:** a shopper clicks "Place demo order" without picking a size. The site shows "Choose a size before placing your demo order." and moves focus to the size buttons. Nothing is saved.
+- **Images and fonts:** the shirt image (`white-shirt.svg`) came with the course template (MIT license). I made the logo (`full-shift-logo.svg`) in BRAND-001. Fonts are system fonts already on the visitor's device (Impact and system-ui), so no font files are downloaded.
 
 ### Search, sharing, and one measure
 
@@ -189,13 +204,16 @@ I asked AI (Claude) to compare two frameworks for my main task: pick a size, see
 - **Sample post:** "Class at 9, shift at 3? One white tee for the whole day. Check your size and see the full price up front 👕 link in bio"
 - **Link preview sketch:** title "Full Shift — one tee, class to closing" · description "See your size and full price before you check out." · image: the white shirt on the yellow background.
 - **After they click:** pick a size and place a demo order.
-- **One measure:** ask a classmate to start the demo checkout and watch whether they reach the order confirmation without help. Note where they hesitate or get stuck. No analytics or tracking installed.
+- **Usage measure:** **checkout completion**, meaning out of the visitors who open the store, how many reach the order confirmation. If many start but few finish, something in the checkout is confusing.
+- **Tool:** [GoatCounter](https://www.goatcounter.com/), a free alternative to Google Analytics. Its site says it doesn't track personal data, doesn't use cookies to count visits, and probably doesn't need a GDPR consent notice. That fits my privacy plan better than Google Analytics. It can count an "event," so I'd count page views of the store and one "order confirmed" event. **Not installed** (the plan doesn't require tracking).
+- **Classmate version of the same measure:** ask a classmate to start the demo checkout and watch whether they reach the confirmation without help. Note where they hesitate or get stuck.
 
-### Review
+### Partner review: feedback and what I revised
 
-| Issue                                                                                   | What the classmate does                                                    | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [#7 Plan review](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/7) | Explains one story back plus how to check it, and asks one useful question | Safwaan explained S2 correctly ([comment](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/7#issuecomment-6902945621)) and asked: what if quantity is over 5, or the price is changed in DevTools? **Decision:** reject it with an error and save nothing, instead of clamping, and use the server's own price. Added to S4 and Inputs. Change made and issue closed Nov 16. Safwaan can comment to reopen if his retry finds a problem |
+| Review                                                                                                   | Feedback from Safwaan                                                                                                                                                                                                 | What I revised                                                                                                                                                                                                                                              |
+| -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [#7](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/7), first plan                  | Explained story S2 back correctly ([comment](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/7#issuecomment-6902945621)). Asked: what if quantity is over 5, or the price is changed in DevTools? | Decided to **reject it with an error, not quietly change it**, and always use the server's own $28 price. Added to S4 and Inputs ([change](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/commit/6772bb5)), then built and tested it. Closed. |
+| [#9](https://github.com/KonradSikorski5/is117-brand-studio-ks2334/issues/9), updated plan (Nov 23 rules) | Asked for Nov 24. He reviews the one small idea, the keyboard, phone, and privacy checks, and the usage measure                                                                                                       | **Waiting for his feedback.** I'll link it here with what I change                                                                                                                                                                                          |
 
 **AI help:** I used Claude to organize this plan in the course format. The stories come from my own research and brand decisions, and I checked the facts against Research.md and this SPEC.
 
@@ -237,10 +255,10 @@ Open the printed address. The page says **"Local server mode: orders are saved i
 
 **Task:** "Buy 2 shirts in size M with a fake email and tell me the order number." Do it on A, then B, with no help.
 
-| Version | Found size guide? | Saw full total before checkout? | Got an order number? | Notes                    |
-| ------- | ----------------- | ------------------------------- | -------------------- | ------------------------ |
-| A       | Not tested yet    | Not tested yet                  | Not tested yet       | Planned in class, Nov 19 |
-| B       | Not tested yet    | Not tested yet                  | Not tested yet       | Planned in class, Nov 19 |
+| Version | Found size guide? | Saw full total before checkout? | Got an order number? | Notes                                                   |
+| ------- | ----------------- | ------------------------------- | -------------------- | ------------------------------------------------------- |
+| A       | Not tested yet    | Not tested yet                  | Not tested yet       | Not done yet. Planned in class before Build (due Dec 3) |
+| B       | Not tested yet    | Not tested yet                  | Not tested yet       | Not done yet. Planned in class before Build (due Dec 3) |
 
 **Launch choice:** not decided. I'll pick A or B after the classmate test, based on which one got through the task more easily, and write the reason here.
 
